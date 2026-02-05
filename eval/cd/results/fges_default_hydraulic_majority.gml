@@ -137,12 +137,6 @@ graph [
   ]
   edge [
     source 4
-    target 6
-    key 0
-    weight 1
-  ]
-  edge [
-    source 4
     target 9
     key 0
     weight 1
@@ -185,13 +179,13 @@ graph [
   ]
   edge [
     source 6
-    target 4
+    target 5
     key 0
     weight 1
   ]
   edge [
     source 6
-    target 5
+    target 9
     key 0
     weight 1
   ]
@@ -281,12 +275,6 @@ graph [
   ]
   edge [
     source 9
-    target 6
-    key 0
-    weight 1
-  ]
-  edge [
-    source 9
     target 7
     key 0
     weight 1
@@ -335,13 +323,13 @@ graph [
   ]
   edge [
     source 12
-    target 7
+    target 6
     key 0
     weight 1
   ]
   edge [
     source 12
-    target 10
+    target 7
     key 0
     weight 1
   ]
