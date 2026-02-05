@@ -1,0 +1,1557 @@
+{
+  "Coolant": {
+    "subsystem": "Coolant",
+    "node_count": 15,
+    "component_count": 6,
+    "components": [
+      {
+        "id": "Coolant_Filter",
+        "subsystem": "Coolant",
+        "name": "Filter",
+        "type": "container",
+        "variables": [
+          {
+            "label": "CLF_Filter_Ok",
+            "comment": "True = coolant filter for fine particles is in Ok state"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "CLF_A_700307",
+            "comment": "alarm that coolant filter is clogged"
+          }
+        ],
+        "variable_count": 1,
+        "alarm_count": 1
+      },
+      {
+        "id": "Coolant_Fleece",
+        "subsystem": "Coolant",
+        "name": "Fleece",
+        "type": "component",
+        "variables": [
+          {
+            "label": "F_Filter_Ok",
+            "comment": "True = coolant fleece filter is Ok (not empty). False = Empty -> Fault"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "F_A_700313",
+            "comment": "alarm that fleece supply in coolant is empty and needs replacement"
+          }
+        ],
+        "variable_count": 1,
+        "alarm_count": 1
+      },
+      {
+        "id": "Coolant_HighPressurePump",
+        "subsystem": "Coolant",
+        "name": "HighPressurePump",
+        "type": "actuator",
+        "variables": [
+          {
+            "label": "HP_Pump_isOff",
+            "comment": "True = high pressure pump for coolant is turned off"
+          },
+          {
+            "label": "HP_Pump_Ok",
+            "comment": "True = high pressure pump for coolant is Ok"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "HP_A_700304",
+            "comment": "alarm that coolant high pressure (HP) pump motor protection switch triggered"
+          }
+        ],
+        "variable_count": 2,
+        "alarm_count": 1
+      },
+      {
+        "id": "Coolant_LiftingTank",
+        "subsystem": "Coolant",
+        "name": "LiftingTank",
+        "type": "container",
+        "variables": [
+          {
+            "label": "LT_Level_Ok",
+            "comment": "True = lifting tank level supervision is ok -> No overlow. False = overlflow"
+          },
+          {
+            "label": "LT_Pump_Ok",
+            "comment": "True = lifting tank pump supervision gives positive feedback"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "LT_A_700317",
+            "comment": "alarm for overflow at lifting tank of coolant"
+          }
+        ],
+        "variable_count": 2,
+        "alarm_count": 1
+      },
+      {
+        "id": "Coolant_LowPressurePump",
+        "subsystem": "Coolant",
+        "name": "LowPressurePump",
+        "type": "actuator",
+        "variables": [
+          {
+            "label": "LP_Pump_Ok",
+            "comment": "True = low pressure pump for coolant is Ok"
+          },
+          {
+            "label": "LP_Pump_On",
+            "comment": "True = low pressure pump for coolant  is commanded to be on"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "LP_A_700301",
+            "comment": "alarm that coolant low pressure (LP) pump motor protection switch triggered"
+          }
+        ],
+        "variable_count": 2,
+        "alarm_count": 1
+      },
+      {
+        "id": "Coolant_Tank",
+        "subsystem": "Coolant",
+        "name": "Tank",
+        "type": "container",
+        "variables": [
+          {
+            "label": "CLT_Level_lt_Min",
+            "comment": "True = coolant level is below minimum -> Error"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "CLT_A_700310",
+            "comment": "alarm that coolant tank fill level is below minimum"
+          }
+        ],
+        "variable_count": 1,
+        "alarm_count": 1
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "CLF_Filter_Ok",
+        "target_label": "CLF_A_700307",
+        "comment": "When Filter_OK=False for at least 5 seconds -> Alarm 700307 is triggered"
+      },
+      {
+        "source_label": "F_Filter_Ok",
+        "target_label": "F_A_700313",
+        "comment": "When Fleece_Filter_Ok=False for at least 5 seconds --> Alarm 700313 is triggered"
+      },
+      {
+        "source_label": "HP_Pump_Ok",
+        "target_label": "HP_A_700304",
+        "comment": "When HP_Pump_Ok=False -> Alarm 700304 is triggered"
+      },
+      {
+        "source_label": "HP_Pump_Ok",
+        "target_label": "HP_Pump_isOff",
+        "comment": "When HP_Pump_Ok=False, then HP_Pump_isOff=True, i.e. the pump is turned off to prevent damage."
+      },
+      {
+        "source_label": "LT_Level_Ok",
+        "target_label": "LT_A_700317",
+        "comment": "When LT_Level_Ok=False -> Alarm 700317 is triggered"
+      },
+      {
+        "source_label": "LT_Level_Ok",
+        "target_label": "LT_Pump_Ok",
+        "comment": "When LT_Level_Ok=False -> LT_Pump_Ok=False, i.e. the pump is turned off to prevent overflow."
+      },
+      {
+        "source_label": "LP_Pump_Ok",
+        "target_label": "LP_A_700301",
+        "comment": "When LP_Pump_Ok=False -> Alarm 700301 is triggered"
+      },
+      {
+        "source_label": "LP_Pump_Ok",
+        "target_label": "LP_Pump_On",
+        "comment": "Only if LP_Pump_Ok=True, then LP_Pump_On can be True."
+      },
+      {
+        "source_label": "LP_Pump_On",
+        "target_label": "HP_Pump_isOff",
+        "comment": "When LP Pump is commanded to be on, then HP Pump is turned off."
+      },
+      {
+        "source_label": "CLT_Level_lt_Min",
+        "target_label": "CLT_A_700310",
+        "comment": "When Level_lt_Min=True -> Alarm 700310 is triggered"
+      }
+    ],
+    "variables": [
+      {
+        "label": "CLF_Filter_Ok",
+        "comment": "True = coolant filter for fine particles is in Ok state"
+      },
+      {
+        "label": "F_Filter_Ok",
+        "comment": "True = coolant fleece filter is Ok (not empty). False = Empty -> Fault"
+      },
+      {
+        "label": "HP_Pump_isOff",
+        "comment": "True = high pressure pump for coolant is turned off"
+      },
+      {
+        "label": "HP_Pump_Ok",
+        "comment": "True = high pressure pump for coolant is Ok"
+      },
+      {
+        "label": "LT_Level_Ok",
+        "comment": "True = lifting tank level supervision is ok -> No overlow. False = overlflow"
+      },
+      {
+        "label": "LT_Pump_Ok",
+        "comment": "True = lifting tank pump supervision gives positive feedback"
+      },
+      {
+        "label": "LP_Pump_Ok",
+        "comment": "True = low pressure pump for coolant is Ok"
+      },
+      {
+        "label": "LP_Pump_On",
+        "comment": "True = low pressure pump for coolant  is commanded to be on"
+      },
+      {
+        "label": "CLT_Level_lt_Min",
+        "comment": "True = coolant level is below minimum -> Error"
+      }
+    ],
+    "alarms": [
+      {
+        "label": "CLF_A_700307",
+        "comment": "alarm that coolant filter is clogged"
+      },
+      {
+        "label": "F_A_700313",
+        "comment": "alarm that fleece supply in coolant is empty and needs replacement"
+      },
+      {
+        "label": "HP_A_700304",
+        "comment": "alarm that coolant high pressure (HP) pump motor protection switch triggered"
+      },
+      {
+        "label": "LT_A_700317",
+        "comment": "alarm for overflow at lifting tank of coolant"
+      },
+      {
+        "label": "LP_A_700301",
+        "comment": "alarm that coolant low pressure (LP) pump motor protection switch triggered"
+      },
+      {
+        "label": "CLT_A_700310",
+        "comment": "alarm that coolant tank fill level is below minimum"
+      }
+    ]
+  },
+  "ExtractionUnit": {
+    "subsystem": "ExtractionUnit",
+    "node_count": 2,
+    "component_count": 1,
+    "components": [
+      {
+        "id": "ExtractionUnit_General",
+        "subsystem": "ExtractionUnit",
+        "name": "General",
+        "type": "component",
+        "variables": [
+          {
+            "label": "ExU_isOff",
+            "comment": "True = extraction unit is off (measured)"
+          },
+          {
+            "label": "ExU_On",
+            "comment": "True = extraction unit is commanded to turn on"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 2,
+        "alarm_count": 0
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "ExU_On",
+        "target_label": "ExU_isOff",
+        "comment": "When ExtractionUnit is commanded to be on (ExU_On=True), it results in the ExtractionUnit being on (ExU_isOff=False)."
+      }
+    ],
+    "variables": [
+      {
+        "label": "ExU_isOff",
+        "comment": "True = extraction unit is off (measured)"
+      },
+      {
+        "label": "ExU_On",
+        "comment": "True = extraction unit is commanded to turn on"
+      }
+    ],
+    "alarms": []
+  },
+  "Hydraulics": {
+    "subsystem": "Hydraulics",
+    "node_count": 17,
+    "component_count": 5,
+    "components": [
+      {
+        "id": "Hydraulics_General",
+        "subsystem": "Hydraulics",
+        "name": "General",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Hyd_IsEnabled",
+            "comment": "True = indicates that hydraulics is enabled"
+          },
+          {
+            "label": "Hyd_Pressure",
+            "comment": "hydraulic pressure analog ACTUAL value"
+          },
+          {
+            "label": "Hyd_Valve_P_Up",
+            "comment": "True = accumulator charge valve commanded to open (until target pressure is reached again)"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "Hyd_A_700202",
+            "comment": "alarm that pressure monitoring of hydraulics registered hydraulic pressure out of norm"
+          }
+        ],
+        "variable_count": 3,
+        "alarm_count": 1
+      },
+      {
+        "id": "Hydraulics_Hyd_Filter",
+        "subsystem": "Hydraulics",
+        "name": "Hyd_Filter",
+        "type": "container",
+        "variables": [
+          {
+            "label": "Hyd_Filter_Ok",
+            "comment": "True = hydraulic filter is Ok"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "Hyd_A_700207",
+            "comment": "alarm that hydraulic filter for returning oil is clogged"
+          }
+        ],
+        "variable_count": 1,
+        "alarm_count": 1
+      },
+      {
+        "id": "Hydraulics_Hyd_Level",
+        "subsystem": "Hydraulics",
+        "name": "Hyd_Level",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Hyd_Level_Ok",
+            "comment": "True = hydraulic level is Ok"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "Hyd_A_700205",
+            "comment": "warning that hydraulic oil level is close to minimum"
+          },
+          {
+            "label": "Hyd_A_700206",
+            "comment": "alarm that hydraulic oil level is below minimum"
+          }
+        ],
+        "variable_count": 1,
+        "alarm_count": 2
+      },
+      {
+        "id": "Hydraulics_Hyd_Pump",
+        "subsystem": "Hydraulics",
+        "name": "Hyd_Pump",
+        "type": "actuator",
+        "variables": [
+          {
+            "label": "Hyd_Pump_isOff",
+            "comment": "True = hydraulic pump is off"
+          },
+          {
+            "label": "Hyd_Pump_Ok",
+            "comment": "True = motor of hydraulic pump is Ok"
+          },
+          {
+            "label": "Hyd_Pump_On",
+            "comment": "True = hydraulic pump is commanded to be on"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "Hyd_A_700208",
+            "comment": "alarm that hydraulic pump motor protection switch triggered"
+          }
+        ],
+        "variable_count": 3,
+        "alarm_count": 1
+      },
+      {
+        "id": "Hydraulics_Hyd_Temp",
+        "subsystem": "Hydraulics",
+        "name": "Hyd_Temp",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Hyd_Temp_lt_70",
+            "comment": "True = temperature of hydraulic oil below 70 degree C, False = warning for temperature"
+          },
+          {
+            "label": "Hyd_Temp_lt_80",
+            "comment": "True = temperature of hydraulic oil below 80 degree C, False = system stop"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "Hyd_A_700203",
+            "comment": "warning that temperature monitoring of hydraulics registers more than 70 degree C"
+          },
+          {
+            "label": "Hyd_A_700204",
+            "comment": "alarm that temperature monitoring of hydraulics registers more than 80 degree C"
+          }
+        ],
+        "variable_count": 2,
+        "alarm_count": 2
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "Hyd_A_700202",
+        "target_label": "Hyd_Valve_P_Up",
+        "comment": "When hydraulic pressure out of norm alarm 700202 is triggered (Hyd_A_700202=True), the pressure accumulation valve is closed in fear of leakage (Hyd_Valve_P_Up=False)."
+      },
+      {
+        "source_label": "Hyd_A_700202",
+        "target_label": "Hyd_Pump_On",
+        "comment": "When pressure out of norm alarm 700202 is triggered (Hyd_A_700202=True), the hydraulic pump is turned off (Hyd_Pump_On=False)."
+      },
+      {
+        "source_label": "Hyd_Pressure",
+        "target_label": "Hyd_A_700202",
+        "comment": "When hydraulic pressure is out of normal range for at least 5 seconds -> Alarm 700202 is triggered"
+      },
+      {
+        "source_label": "Hyd_Pressure",
+        "target_label": "Hyd_Valve_P_Up",
+        "comment": "When hydraulic pressure falls below threshold, valve is commanded to open (Hyd_Valve_P_Up=True)"
+      },
+      {
+        "source_label": "Hyd_A_700207",
+        "target_label": "Hyd_IsEnabled",
+        "comment": "When hydraulic filter is clogged alarm 700207 is triggered (Hyd_A_700207=True), hydraulics is disabled (Hyd_IsEnabled=False)."
+      },
+      {
+        "source_label": "Hyd_Filter_Ok",
+        "target_label": "Hyd_A_700207",
+        "comment": "When Hyd_Filter_Ok=False for at least 5 seconds -> Alarm 700207 is triggered"
+      },
+      {
+        "source_label": "Hyd_Filter_Ok",
+        "target_label": "Hyd_Pump_Ok",
+        "comment": "When Hyd_Filter_Ok=False for some time, the probability of Hyd_Pump_OK=False rises (pump might fail)"
+      },
+      {
+        "source_label": "Hyd_A_700206",
+        "target_label": "Hyd_Pump_On",
+        "comment": "When hydraulic level is below minimum alarm 700206 is triggered (Hyd_A_700206=True), the hydraulic pump is turned off (Hyd_Pump_On=False)."
+      },
+      {
+        "source_label": "Hyd_Level_Ok",
+        "target_label": "Hyd_A_700205",
+        "comment": "When Hyd_Level_Ok=False -> Warning 700205 is immediately triggered"
+      },
+      {
+        "source_label": "Hyd_Level_Ok",
+        "target_label": "Hyd_A_700206",
+        "comment": "When Hyd_Level_Ok=False for at least 800ms  -> Alarm 700206 is triggered"
+      },
+      {
+        "source_label": "Hyd_Level_Ok",
+        "target_label": "Hyd_Pump_Ok",
+        "comment": "When Hyd_Level_Ok=False for some time, the probability of Hyd_Pump_OK=False rises (pump might fail)"
+      },
+      {
+        "source_label": "Hyd_Pump_Ok",
+        "target_label": "Hyd_A_700208",
+        "comment": "When Hyd_Pump_Ok=False -> Motor protection switch is triggered indicated by alarm 700208=True"
+      },
+      {
+        "source_label": "Hyd_Pump_Ok",
+        "target_label": "Hyd_Pump_On",
+        "comment": "If Hyd_Pump_Ok=False, then Hyd_Pump_On is turned off (Hyd_Pump_On=False) to prevent damage."
+      },
+      {
+        "source_label": "Hyd_Pump_On",
+        "target_label": "Hyd_Pump_isOff",
+        "comment": "When hydraulic pump is commanded to be on (Hyd_Pump_On=True), it results in the pump being on (Hyd_Pump_isOff=False)"
+      },
+      {
+        "source_label": "Hyd_A_700204",
+        "target_label": "Hyd_IsEnabled",
+        "comment": "When hydraulic temperature is above 80 degree C alarm 700204 is triggered (Hyd_A_700204=True), hydraulics is disabled (Hyd_IsEnabled=False)."
+      },
+      {
+        "source_label": "Hyd_Temp_lt_70",
+        "target_label": "Hyd_A_700203",
+        "comment": "When Hyd_Temp_lt_70=False (temp >= 70\u00b0C) -> Warning 700203 is triggered"
+      },
+      {
+        "source_label": "Hyd_Temp_lt_70",
+        "target_label": "Hyd_Temp_lt_80",
+        "comment": "Temperature above 70 degree is reached before 80 degree (common unobserved confounder)"
+      },
+      {
+        "source_label": "Hyd_Temp_lt_80",
+        "target_label": "Hyd_A_700204",
+        "comment": "When Hyd_Temp_lt_80=False (temp >= 80\u00b0C) -> Alarm 700204 is triggered"
+      }
+    ],
+    "variables": [
+      {
+        "label": "Hyd_IsEnabled",
+        "comment": "True = indicates that hydraulics is enabled"
+      },
+      {
+        "label": "Hyd_Pressure",
+        "comment": "hydraulic pressure analog ACTUAL value"
+      },
+      {
+        "label": "Hyd_Valve_P_Up",
+        "comment": "True = accumulator charge valve commanded to open (until target pressure is reached again)"
+      },
+      {
+        "label": "Hyd_Filter_Ok",
+        "comment": "True = hydraulic filter is Ok"
+      },
+      {
+        "label": "Hyd_Level_Ok",
+        "comment": "True = hydraulic level is Ok"
+      },
+      {
+        "label": "Hyd_Pump_isOff",
+        "comment": "True = hydraulic pump is off"
+      },
+      {
+        "label": "Hyd_Pump_Ok",
+        "comment": "True = motor of hydraulic pump is Ok"
+      },
+      {
+        "label": "Hyd_Pump_On",
+        "comment": "True = hydraulic pump is commanded to be on"
+      },
+      {
+        "label": "Hyd_Temp_lt_70",
+        "comment": "True = temperature of hydraulic oil below 70 degree C, False = warning for temperature"
+      },
+      {
+        "label": "Hyd_Temp_lt_80",
+        "comment": "True = temperature of hydraulic oil below 80 degree C, False = system stop"
+      }
+    ],
+    "alarms": [
+      {
+        "label": "Hyd_A_700202",
+        "comment": "alarm that pressure monitoring of hydraulics registered hydraulic pressure out of norm"
+      },
+      {
+        "label": "Hyd_A_700207",
+        "comment": "alarm that hydraulic filter for returning oil is clogged"
+      },
+      {
+        "label": "Hyd_A_700205",
+        "comment": "warning that hydraulic oil level is close to minimum"
+      },
+      {
+        "label": "Hyd_A_700206",
+        "comment": "alarm that hydraulic oil level is below minimum"
+      },
+      {
+        "label": "Hyd_A_700208",
+        "comment": "alarm that hydraulic pump motor protection switch triggered"
+      },
+      {
+        "label": "Hyd_A_700203",
+        "comment": "warning that temperature monitoring of hydraulics registers more than 70 degree C"
+      },
+      {
+        "label": "Hyd_A_700204",
+        "comment": "alarm that temperature monitoring of hydraulics registers more than 80 degree C"
+      }
+    ]
+  },
+  "Lubrication": {
+    "subsystem": "Lubrication",
+    "node_count": 2,
+    "component_count": 1,
+    "components": [
+      {
+        "id": "Lubrication_General",
+        "subsystem": "Lubrication",
+        "name": "General",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Lubr_On",
+            "comment": "True = lubrication is commanded to be on"
+          },
+          {
+            "label": "Lubr_P_Ok",
+            "comment": "True = pressure for central lubrication is sufficient; False = pressure needs to be built up"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 2,
+        "alarm_count": 0
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "Lubr_On",
+        "target_label": "Lubr_P_Ok",
+        "comment": "When lubrication is commanded On (Lubr_On=True), pressure builds up until sufficient (Lubr_P_Ok=True).\r\n                                When LubrOn=False, Lubr_P_Ok also changes to False."
+      }
+    ],
+    "variables": [
+      {
+        "label": "Lubr_On",
+        "comment": "True = lubrication is commanded to be on"
+      },
+      {
+        "label": "Lubr_P_Ok",
+        "comment": "True = pressure for central lubrication is sufficient; False = pressure needs to be built up"
+      }
+    ],
+    "alarms": []
+  },
+  "MeasuringProbe": {
+    "subsystem": "MeasuringProbe",
+    "node_count": 11,
+    "component_count": 3,
+    "components": [
+      {
+        "id": "MeasuringProbe_General",
+        "subsystem": "MeasuringProbe",
+        "name": "General",
+        "type": "component",
+        "variables": [
+          {
+            "label": "MP_Inactive",
+            "comment": "True = measuring probe inactive, False=active and measuring"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 1,
+        "alarm_count": 0
+      },
+      {
+        "id": "MeasuringProbe_Axis",
+        "subsystem": "MeasuringProbe",
+        "name": "Axis",
+        "type": "component",
+        "variables": [
+          {
+            "label": "MPA_InitPos",
+            "comment": "True = axis that carries measuring probe is in initial position = hidden"
+          },
+          {
+            "label": "MPA_toInitPos",
+            "comment": "True = axis that carries measuring probe commanded to initial position (hidden)"
+          },
+          {
+            "label": "MPA_toWorkPos",
+            "comment": "True = axis that carries measuring probe commanded to working position to measure workpieces"
+          },
+          {
+            "label": "MPA_WorkPos",
+            "comment": "True = axis that carries measuring probe is in working pos, where it can measure workpieces"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "MPA_A_701124",
+            "comment": "alarm that for measuring probe did not reach end position in time"
+          },
+          {
+            "label": "MPA_A_701125",
+            "comment": "alarm that for measuring probe axis both endposition sensor inputs indicate true"
+          }
+        ],
+        "variable_count": 4,
+        "alarm_count": 2
+      },
+      {
+        "id": "MeasuringProbe_Cover",
+        "subsystem": "MeasuringProbe",
+        "name": "Cover",
+        "type": "actuator",
+        "variables": [
+          {
+            "label": "MPC_close",
+            "comment": "True = cover for measuring probe axis cover is commanded to be closed"
+          },
+          {
+            "label": "MPC_Closed",
+            "comment": "True = cover for measuring probe axis cover is closed"
+          },
+          {
+            "label": "MPC_isOpen",
+            "comment": "True = cover for measuring probe axis cover is open"
+          },
+          {
+            "label": "MPC_open",
+            "comment": "True = cover for measuring probe axis cover is commanded to be opened"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 4,
+        "alarm_count": 0
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "MPA_InitPos",
+        "target_label": "MPA_A_701124",
+        "comment": "When axis is not reaching initial pos in time (MPA_InitPos=False), besides being commanded to (MPA_toInitPos=True),\r\n                        end position not reached alarm 701124 is triggered."
+      },
+      {
+        "source_label": "MPA_InitPos",
+        "target_label": "MPA_A_701125",
+        "comment": "When both end position sensors are triggered (MPA_WorkPos=True AND MPA_InitPos=True),\r\n                        alarm 701125 is triggered."
+      },
+      {
+        "source_label": "MPA_InitPos",
+        "target_label": "MPC_close",
+        "comment": "When axis is in initial position (MPA_InitPos=True), cover can be commanded to close (MPC_close=True)"
+      },
+      {
+        "source_label": "MPA_toInitPos",
+        "target_label": "MPA_A_701124",
+        "comment": "When axis is commanded to initial position (MPA_toInitPos=True) but does not reach it in time (MPA_InitPos=False),\r\n                        end position not reached alarm 701124 is triggered."
+      },
+      {
+        "source_label": "MPA_toInitPos",
+        "target_label": "MPA_InitPos",
+        "comment": "When axis is commanded to initial position (MPA_toInitPos=True), it moves to initial position (MPA_InitPos=True)"
+      },
+      {
+        "source_label": "MPA_toInitPos",
+        "target_label": "MPA_toWorkPos",
+        "comment": "When axis is not commanded to initial position (MPA_toInitPos=False),\r\n                                it can be commanded to working position (MPA_toWorkPos=True)"
+      },
+      {
+        "source_label": "MPA_toWorkPos",
+        "target_label": "MPA_A_701124",
+        "comment": "When axis is commanded to working position (MPA_toWorkPos=True) but does not reach it in time (MPA_WorkPos=False),\r\n                        end position not reached alarm 701124 is triggered."
+      },
+      {
+        "source_label": "MPA_toWorkPos",
+        "target_label": "MPA_WorkPos",
+        "comment": "When axis is commanded to working position (MPA_toWorkPos=True), it moves to working position (MPA_WorkPos=True)"
+      },
+      {
+        "source_label": "MPA_WorkPos",
+        "target_label": "MP_Inactive",
+        "comment": "When axis is in working position (MPA_WorkPos=True), measuring probe can be activated (MP_Inactive=False)"
+      },
+      {
+        "source_label": "MPA_WorkPos",
+        "target_label": "MPA_A_701124",
+        "comment": "When axis is not reaching work pos in time (MPA_WorkPos=False), besides being commanded to (MPA_toWorkPos=True),\r\n                        end position not reached alarm 701124 is triggered."
+      },
+      {
+        "source_label": "MPA_WorkPos",
+        "target_label": "MPA_A_701125",
+        "comment": "When both end position sensors are triggered (MPA_WorkPos=True AND MPA_InitPos=True),\r\n                        alarm 701125 is triggered."
+      },
+      {
+        "source_label": "MPC_close",
+        "target_label": "MPC_Closed",
+        "comment": "When cover is commanded to close (MPC_close=True), cover closes (MPC_Closed=True)"
+      },
+      {
+        "source_label": "MPC_close",
+        "target_label": "MPC_open",
+        "comment": "When cover is not commanded to close (MPC_close=False),\r\n                                it can be commanded to open (MPC_open=True)"
+      },
+      {
+        "source_label": "MPC_isOpen",
+        "target_label": "MPA_toWorkPos",
+        "comment": "When cover is open (MPC_isOpen=True), axis can be commanded to working position (MPA_toWorkPos=True)"
+      },
+      {
+        "source_label": "MPC_open",
+        "target_label": "MPC_isOpen",
+        "comment": "When cover is commanded to open (MPC_open=True), cover opens (MPC_isOpen=True)"
+      }
+    ],
+    "variables": [
+      {
+        "label": "MP_Inactive",
+        "comment": "True = measuring probe inactive, False=active and measuring"
+      },
+      {
+        "label": "MPA_InitPos",
+        "comment": "True = axis that carries measuring probe is in initial position = hidden"
+      },
+      {
+        "label": "MPA_toInitPos",
+        "comment": "True = axis that carries measuring probe commanded to initial position (hidden)"
+      },
+      {
+        "label": "MPA_toWorkPos",
+        "comment": "True = axis that carries measuring probe commanded to working position to measure workpieces"
+      },
+      {
+        "label": "MPA_WorkPos",
+        "comment": "True = axis that carries measuring probe is in working pos, where it can measure workpieces"
+      },
+      {
+        "label": "MPC_close",
+        "comment": "True = cover for measuring probe axis cover is commanded to be closed"
+      },
+      {
+        "label": "MPC_Closed",
+        "comment": "True = cover for measuring probe axis cover is closed"
+      },
+      {
+        "label": "MPC_isOpen",
+        "comment": "True = cover for measuring probe axis cover is open"
+      },
+      {
+        "label": "MPC_open",
+        "comment": "True = cover for measuring probe axis cover is commanded to be opened"
+      }
+    ],
+    "alarms": [
+      {
+        "label": "MPA_A_701124",
+        "comment": "alarm that for measuring probe did not reach end position in time"
+      },
+      {
+        "label": "MPA_A_701125",
+        "comment": "alarm that for measuring probe axis both endposition sensor inputs indicate true"
+      }
+    ]
+  },
+  "Monitoring": {
+    "subsystem": "Monitoring",
+    "node_count": 8,
+    "component_count": 2,
+    "components": [
+      {
+        "id": "Monitoring_General",
+        "subsystem": "Monitoring",
+        "name": "General",
+        "type": "component",
+        "variables": [
+          {
+            "label": "M_ErrorActive",
+            "comment": "True = at least one error is active"
+          },
+          {
+            "label": "M_Lifebit",
+            "comment": "heartbeat Bit that alternates between True and False to indicate that communication to upper systems is healthy"
+          },
+          {
+            "label": "M_PowerOnDuration",
+            "comment": "time in minutes since last normal power-up"
+          },
+          {
+            "label": "M_WarnActive",
+            "comment": "True = at least one warning is active, that does not trigger the stacklight"
+          },
+          {
+            "label": "M_WarnWithStacklight",
+            "comment": "True = at least one warning is active that triggers the stacklight"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 5,
+        "alarm_count": 0
+      },
+      {
+        "id": "Monitoring_Stacklight",
+        "subsystem": "Monitoring",
+        "name": "Stacklight",
+        "type": "component",
+        "variables": [
+          {
+            "label": "SL_Green",
+            "comment": "True = stacklight indicates green (all good)"
+          },
+          {
+            "label": "SL_Red",
+            "comment": "True = stacklight indicates red (fault / stop)"
+          },
+          {
+            "label": "SL_Yellow",
+            "comment": "True = stacklight indicates yellow (notifications / warnings are present)"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 3,
+        "alarm_count": 0
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "M_ErrorActive",
+        "target_label": "M_WarnWithStacklight",
+        "comment": "When an error is active, a warning with stacklight is also triggered."
+      },
+      {
+        "source_label": "M_WarnActive",
+        "target_label": "SL_Yellow",
+        "comment": "A general warning can affect the yellow light state (e.g., blinking)."
+      },
+      {
+        "source_label": "M_WarnWithStacklight",
+        "target_label": "SL_Green",
+        "comment": "A warning with stacklight can affect the green light state (e.g., blinking)."
+      },
+      {
+        "source_label": "M_WarnWithStacklight",
+        "target_label": "SL_Red",
+        "comment": "A warning with stacklight can affect the red light state (e.g., blinking)."
+      },
+      {
+        "source_label": "M_WarnWithStacklight",
+        "target_label": "SL_Yellow",
+        "comment": "A warning with stacklight can affect the yellow light state (e.g., blinking)."
+      }
+    ],
+    "variables": [
+      {
+        "label": "M_ErrorActive",
+        "comment": "True = at least one error is active"
+      },
+      {
+        "label": "M_Lifebit",
+        "comment": "heartbeat Bit that alternates between True and False to indicate that communication to upper systems is healthy"
+      },
+      {
+        "label": "M_PowerOnDuration",
+        "comment": "time in minutes since last normal power-up"
+      },
+      {
+        "label": "M_WarnActive",
+        "comment": "True = at least one warning is active, that does not trigger the stacklight"
+      },
+      {
+        "label": "M_WarnWithStacklight",
+        "comment": "True = at least one warning is active that triggers the stacklight"
+      },
+      {
+        "label": "SL_Green",
+        "comment": "True = stacklight indicates green (all good)"
+      },
+      {
+        "label": "SL_Red",
+        "comment": "True = stacklight indicates red (fault / stop)"
+      },
+      {
+        "label": "SL_Yellow",
+        "comment": "True = stacklight indicates yellow (notifications / warnings are present)"
+      }
+    ],
+    "alarms": []
+  },
+  "MovingSteadyRest": {
+    "subsystem": "MovingSteadyRest",
+    "node_count": 3,
+    "component_count": 2,
+    "components": [
+      {
+        "id": "MovingSteadyRest_General",
+        "subsystem": "MovingSteadyRest",
+        "name": "General",
+        "type": "component",
+        "variables": [],
+        "alarms": [
+          {
+            "label": "SR_A_67040",
+            "comment": "notification that moving steady rest is already in home position"
+          }
+        ],
+        "variable_count": 0,
+        "alarm_count": 1
+      },
+      {
+        "id": "MovingSteadyRest_Clamping",
+        "subsystem": "MovingSteadyRest",
+        "name": "Clamping",
+        "type": "component",
+        "variables": [
+          {
+            "label": "SR_loosen",
+            "comment": "True = steady rest commanded to loosen workpiece clamping"
+          },
+          {
+            "label": "SR_tighten",
+            "comment": "True = steady rest commanded to tighten workpiece clamping"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 2,
+        "alarm_count": 0
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "SR_loosen",
+        "target_label": "SR_tighten",
+        "comment": "When steady rest is commanded to loosen (SR_loosen=False), it can be commanded to tighten (SR_tighten=True)"
+      }
+    ],
+    "variables": [
+      {
+        "label": "SR_loosen",
+        "comment": "True = steady rest commanded to loosen workpiece clamping"
+      },
+      {
+        "label": "SR_tighten",
+        "comment": "True = steady rest commanded to tighten workpiece clamping"
+      }
+    ],
+    "alarms": [
+      {
+        "label": "SR_A_67040",
+        "comment": "notification that moving steady rest is already in home position"
+      }
+    ]
+  },
+  "WorkpieceSupply": {
+    "subsystem": "WorkpieceSupply",
+    "node_count": 18,
+    "component_count": 2,
+    "components": [
+      {
+        "id": "WorkpieceSupply_WorkpieceCarrier",
+        "subsystem": "WorkpieceSupply",
+        "name": "WorkpieceCarrier",
+        "type": "component",
+        "variables": [
+          {
+            "label": "SRL_lock",
+            "comment": "True = steady rest is commanded to lock in position"
+          },
+          {
+            "label": "SRL_Locked",
+            "comment": "True = steady rest is Locked in position"
+          },
+          {
+            "label": "SRL_unlock",
+            "comment": "True = steady rest is commanded to unlock position"
+          },
+          {
+            "label": "SRL_Unlocked",
+            "comment": "True = steady rest is Unlocked and free to move position"
+          },
+          {
+            "label": "TL_lock",
+            "comment": "True = tool revolver is commanded to lock in position"
+          },
+          {
+            "label": "TL_Locked",
+            "comment": "True = tool revolver is Locked in position"
+          },
+          {
+            "label": "TL_unlock",
+            "comment": "True = tool revolver commanded to unlock position (required for tool change)"
+          },
+          {
+            "label": "WC_inPos",
+            "comment": "True = sensor indicates that workpiece carrier is in correct position"
+          },
+          {
+            "label": "WCL_InitPos",
+            "comment": "True = lock for securing workpiece carrier is in initial position = hidden"
+          },
+          {
+            "label": "WCL_Locked",
+            "comment": "True = workpiece carrier is locked"
+          },
+          {
+            "label": "WCL_toInitPos",
+            "comment": "True = lock for securing workpiece carrier commanded to initial position (hidden)"
+          },
+          {
+            "label": "WCL_toWorkPos",
+            "comment": "True = lock for securing workpiece carrier commanded to working position, where it can lock the workpiece carrier"
+          },
+          {
+            "label": "WCL_Unlocked",
+            "comment": "True = workpiece carrier is unlocked"
+          },
+          {
+            "label": "WCL_WorkPos",
+            "comment": "True = lock for securing workpiece carrier is in working pos, where it can lock the workpiece carrier"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 14,
+        "alarm_count": 0
+      },
+      {
+        "id": "WorkpieceSupply_ConveyerBeltCover",
+        "subsystem": "WorkpieceSupply",
+        "name": "ConveyerBeltCover",
+        "type": "actuator",
+        "variables": [
+          {
+            "label": "CBC_close",
+            "comment": "True = cover protecting conveyer belt with workpiece carriers in workspace is commanded to be closed"
+          },
+          {
+            "label": "CBC_Closed",
+            "comment": "True = cover protecting conveyer belt with workpiece carriers in workspace is closed"
+          },
+          {
+            "label": "CBC_isOpen",
+            "comment": "True = cover protecting conveyer belt with workpiece carriers in workspace is open"
+          },
+          {
+            "label": "CBC_open",
+            "comment": "True = cover protecting conveyer belt with workpiece carriers in workspace to be opened"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 4,
+        "alarm_count": 0
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "SRL_lock",
+        "target_label": "SRL_Locked",
+        "comment": "When steady rest is commanded to lock (SRL_lock=True), it results in the steady rest being locked (SRL_Locked=True)"
+      },
+      {
+        "source_label": "SRL_unlock",
+        "target_label": "SRL_Unlocked",
+        "comment": "When steady rest is commanded to unlock (SRL_unlock=True), it results in the steady rest being unlocked (SRL_Unlocked=True)"
+      },
+      {
+        "source_label": "TL_lock",
+        "target_label": "TL_Locked",
+        "comment": "When tool revolver is commanded to lock (TL_lock=True), it results in the revolver being locked (TL_Locked=True)"
+      },
+      {
+        "source_label": "TL_unlock",
+        "target_label": "TL_lock",
+        "comment": "When tool revolver is commanded to unlock (TL_unlock=True), it prevents the lock command (TL_lock=False)"
+      },
+      {
+        "source_label": "TL_unlock",
+        "target_label": "TL_Locked",
+        "comment": "When tool revolver is commanded to unlock (TL_unlock=True), it results in the revolver being unlocked (TL_Locked=False)"
+      },
+      {
+        "source_label": "CBC_close",
+        "target_label": "CBC_Closed",
+        "comment": "When cover is commanded to close (CBC_close=True), it results in the cover being closed (CBC_Closed=True)"
+      },
+      {
+        "source_label": "CBC_isOpen",
+        "target_label": "WCL_toWorkPos",
+        "comment": "When cover is open (CBC_isOpen=True), workpiece carrier lock can be moved into position"
+      },
+      {
+        "source_label": "CBC_open",
+        "target_label": "CBC_isOpen",
+        "comment": "When cover is commanded to open (CBC_open=True), it results in the cover being open (CBC_isOpen=True)"
+      },
+      {
+        "source_label": "WCL_InitPos",
+        "target_label": "CBC_close",
+        "comment": "When workpiece carrier lock is back in initial position (WCL_InitPos=True), the cover can be commanded to close (CBC_close=True)"
+      },
+      {
+        "source_label": "WCL_toInitPos",
+        "target_label": "WCL_InitPos",
+        "comment": "When lock is commanded to initial position (WCL_toInitPos=True), it moves to initial position (WCL_InitPos=True)"
+      },
+      {
+        "source_label": "WCL_toWorkPos",
+        "target_label": "WCL_WorkPos",
+        "comment": "When lock is commanded to working position (WCL_toWorkPos=True), it moves to working position (WCL_WorkPos=True)"
+      },
+      {
+        "source_label": "WCL_Unlocked",
+        "target_label": "WCL_toInitPos",
+        "comment": "Only when unlocked (WCL_Unlocked=True), lock can be commanded to initial position (WCL_toInitPos=True)"
+      },
+      {
+        "source_label": "WCL_WorkPos",
+        "target_label": "WCL_Locked",
+        "comment": "When lock is in working position (WCL_WorkPos=True), carrier can be locked (WCL_Locked=True)"
+      }
+    ],
+    "variables": [
+      {
+        "label": "SRL_lock",
+        "comment": "True = steady rest is commanded to lock in position"
+      },
+      {
+        "label": "SRL_Locked",
+        "comment": "True = steady rest is Locked in position"
+      },
+      {
+        "label": "SRL_unlock",
+        "comment": "True = steady rest is commanded to unlock position"
+      },
+      {
+        "label": "SRL_Unlocked",
+        "comment": "True = steady rest is Unlocked and free to move position"
+      },
+      {
+        "label": "TL_lock",
+        "comment": "True = tool revolver is commanded to lock in position"
+      },
+      {
+        "label": "TL_Locked",
+        "comment": "True = tool revolver is Locked in position"
+      },
+      {
+        "label": "TL_unlock",
+        "comment": "True = tool revolver commanded to unlock position (required for tool change)"
+      },
+      {
+        "label": "CBC_close",
+        "comment": "True = cover protecting conveyer belt with workpiece carriers in workspace is commanded to be closed"
+      },
+      {
+        "label": "CBC_Closed",
+        "comment": "True = cover protecting conveyer belt with workpiece carriers in workspace is closed"
+      },
+      {
+        "label": "CBC_isOpen",
+        "comment": "True = cover protecting conveyer belt with workpiece carriers in workspace is open"
+      },
+      {
+        "label": "CBC_open",
+        "comment": "True = cover protecting conveyer belt with workpiece carriers in workspace to be opened"
+      },
+      {
+        "label": "WC_inPos",
+        "comment": "True = sensor indicates that workpiece carrier is in correct position"
+      },
+      {
+        "label": "WCL_InitPos",
+        "comment": "True = lock for securing workpiece carrier is in initial position = hidden"
+      },
+      {
+        "label": "WCL_Locked",
+        "comment": "True = workpiece carrier is locked"
+      },
+      {
+        "label": "WCL_toInitPos",
+        "comment": "True = lock for securing workpiece carrier commanded to initial position (hidden)"
+      },
+      {
+        "label": "WCL_toWorkPos",
+        "comment": "True = lock for securing workpiece carrier commanded to working position, where it can lock the workpiece carrier"
+      },
+      {
+        "label": "WCL_Unlocked",
+        "comment": "True = workpiece carrier is unlocked"
+      },
+      {
+        "label": "WCL_WorkPos",
+        "comment": "True = lock for securing workpiece carrier is in working pos, where it can lock the workpiece carrier"
+      }
+    ],
+    "alarms": []
+  },
+  "Program": {
+    "subsystem": "Program",
+    "node_count": 6,
+    "component_count": 1,
+    "components": [
+      {
+        "id": "Program_General",
+        "subsystem": "Program",
+        "name": "General",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Prog_CuttingTime",
+            "comment": "Tool operating time (in seconds). The operating time of the path axes excluding active rapid traverse is measured in all NC programs between NC Start and Program End/NC Reset.\r\n                                                                The measurement is also interrupted during an active dwell time. The timer is automatically set to zero every time the control boots on default values."
+          },
+          {
+            "label": "Prog_CycleTime",
+            "comment": "Runtime of the selected NC (sub-)program in seconds: The runtime between NC start and program end / NC reset is measured in the selected NC program. The timer is deleted when a new NC program is started."
+          },
+          {
+            "label": "Prog_LineNo",
+            "comment": "Line number of the current NC block (from1) in current sub-program.\r\n                                                        0: before program start -1: not available due to error -2: not available due to DISPLOF"
+          },
+          {
+            "label": "Prog_Name",
+            "comment": "Program name of the currently active (sub-)program"
+          },
+          {
+            "label": "Prog_Name_LineNo",
+            "comment": "Joined identifier of current active sub-program and line number within subprogram in pattern: <Prog_Name>|<LineNo>"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "Prog_A_701330",
+            "comment": "notification that home position is reached - continue with NC start"
+          }
+        ],
+        "variable_count": 5,
+        "alarm_count": 1
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "Prog_LineNo",
+        "target_label": "Prog_Name_LineNo",
+        "comment": "The current line number (Prog_LineNo) is used to construct the joined identifier (Prog_Name_LineNo)"
+      },
+      {
+        "source_label": "Prog_Name",
+        "target_label": "Prog_CycleTime",
+        "comment": "The cycle time (Prog_CycleTime) is measured for the currently active program (Prog_Name)"
+      },
+      {
+        "source_label": "Prog_Name",
+        "target_label": "Prog_LineNo",
+        "comment": "The active program (Prog_Name) determines which line numbers (Prog_LineNo) are available"
+      },
+      {
+        "source_label": "Prog_Name",
+        "target_label": "Prog_Name_LineNo",
+        "comment": "The active program name (Prog_Name) is used to construct the joined identifier (Prog_Name_LineNo)"
+      },
+      {
+        "source_label": "Prog_Name_LineNo",
+        "target_label": "Prog_A_701330",
+        "comment": "Certain programs like HOME_CH1_SPF and specific lines may trigger the home position notification (Prog_A_701330)"
+      }
+    ],
+    "variables": [
+      {
+        "label": "Prog_CuttingTime",
+        "comment": "Tool operating time (in seconds). The operating time of the path axes excluding active rapid traverse is measured in all NC programs between NC Start and Program End/NC Reset.\r\n                                                                The measurement is also interrupted during an active dwell time. The timer is automatically set to zero every time the control boots on default values."
+      },
+      {
+        "label": "Prog_CycleTime",
+        "comment": "Runtime of the selected NC (sub-)program in seconds: The runtime between NC start and program end / NC reset is measured in the selected NC program. The timer is deleted when a new NC program is started."
+      },
+      {
+        "label": "Prog_LineNo",
+        "comment": "Line number of the current NC block (from1) in current sub-program.\r\n                                                        0: before program start -1: not available due to error -2: not available due to DISPLOF"
+      },
+      {
+        "label": "Prog_Name",
+        "comment": "Program name of the currently active (sub-)program"
+      },
+      {
+        "label": "Prog_Name_LineNo",
+        "comment": "Joined identifier of current active sub-program and line number within subprogram in pattern: <Prog_Name>|<LineNo>"
+      }
+    ],
+    "alarms": [
+      {
+        "label": "Prog_A_701330",
+        "comment": "notification that home position is reached - continue with NC start"
+      }
+    ]
+  },
+  "Spindle": {
+    "subsystem": "Spindle",
+    "node_count": 8,
+    "component_count": 4,
+    "components": [
+      {
+        "id": "Spindle_General",
+        "subsystem": "Spindle",
+        "name": "General",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Spd_InnerCoolOn",
+            "comment": "True = inner cooling on spindle is commanded to turn on"
+          },
+          {
+            "label": "Spd_OuterCoolOn",
+            "comment": "True = outer cooling on spindle is commanded to turn on"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 2,
+        "alarm_count": 0
+      },
+      {
+        "id": "Spindle_cAxis",
+        "subsystem": "Spindle",
+        "name": "cAxis",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Spd_ActPos_C",
+            "comment": "actual position of the spindles spinning c-axis in degrees"
+          },
+          {
+            "label": "Spd_ActSpeed_C",
+            "comment": "actual speed of the spindles spinning c-axis in degrees/second"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 2,
+        "alarm_count": 0
+      },
+      {
+        "id": "Spindle_xAxis",
+        "subsystem": "Spindle",
+        "name": "xAxis",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Spd_ActPos_X",
+            "comment": "actual position of the spindles x-axis in mm"
+          },
+          {
+            "label": "Spd_ActSpeed_X",
+            "comment": "actual speed of the spindles x-axis in mm/s"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 2,
+        "alarm_count": 0
+      },
+      {
+        "id": "Spindle_zAxis",
+        "subsystem": "Spindle",
+        "name": "zAxis",
+        "type": "component",
+        "variables": [
+          {
+            "label": "Spd_ActPos_Z",
+            "comment": "actual position of the spindles z-axis in mm"
+          },
+          {
+            "label": "Spd_ActSpeed_Z",
+            "comment": "actual speed of the spindles z-axis in mm/s"
+          }
+        ],
+        "alarms": [],
+        "variable_count": 2,
+        "alarm_count": 0
+      }
+    ],
+    "internal_causal_edges": [
+      {
+        "source_label": "Spd_ActSpeed_C",
+        "target_label": "Spd_ActPos_C",
+        "comment": "Speed of the spindle c-axis (Spd_ActSpeed_C) affects its position (Spd_ActPos_C) over time."
+      },
+      {
+        "source_label": "Spd_ActSpeed_X",
+        "target_label": "Spd_ActPos_X",
+        "comment": "Speed of the spindle x-axis (Spd_ActSpeed_X) affects its position (Spd_ActPos_X) over time."
+      },
+      {
+        "source_label": "Spd_ActSpeed_Z",
+        "target_label": "Spd_ActPos_Z",
+        "comment": "Speed of the spindle z-axis (Spd_ActSpeed_Z) affects its position over time (Spd_ActPos_Z)."
+      }
+    ],
+    "variables": [
+      {
+        "label": "Spd_InnerCoolOn",
+        "comment": "True = inner cooling on spindle is commanded to turn on"
+      },
+      {
+        "label": "Spd_OuterCoolOn",
+        "comment": "True = outer cooling on spindle is commanded to turn on"
+      },
+      {
+        "label": "Spd_ActPos_C",
+        "comment": "actual position of the spindles spinning c-axis in degrees"
+      },
+      {
+        "label": "Spd_ActSpeed_C",
+        "comment": "actual speed of the spindles spinning c-axis in degrees/second"
+      },
+      {
+        "label": "Spd_ActPos_X",
+        "comment": "actual position of the spindles x-axis in mm"
+      },
+      {
+        "label": "Spd_ActSpeed_X",
+        "comment": "actual speed of the spindles x-axis in mm/s"
+      },
+      {
+        "label": "Spd_ActPos_Z",
+        "comment": "actual position of the spindles z-axis in mm"
+      },
+      {
+        "label": "Spd_ActSpeed_Z",
+        "comment": "actual speed of the spindles z-axis in mm/s"
+      }
+    ],
+    "alarms": []
+  },
+  "Tool": {
+    "subsystem": "Tool",
+    "node_count": 2,
+    "component_count": 1,
+    "components": [
+      {
+        "id": "Tool_General",
+        "subsystem": "Tool",
+        "name": "General",
+        "type": "component",
+        "variables": [
+          {
+            "label": "T_ActToolIdent",
+            "comment": "string identifier of currently clamped tool"
+          }
+        ],
+        "alarms": [
+          {
+            "label": "T_A_701309",
+            "comment": "warning that tool change is in progress"
+          }
+        ],
+        "variable_count": 1,
+        "alarm_count": 1
+      }
+    ],
+    "internal_causal_edges": [],
+    "variables": [
+      {
+        "label": "T_ActToolIdent",
+        "comment": "string identifier of currently clamped tool"
+      }
+    ],
+    "alarms": [
+      {
+        "label": "T_A_701309",
+        "comment": "warning that tool change is in progress"
+      }
+    ]
+  }
+}

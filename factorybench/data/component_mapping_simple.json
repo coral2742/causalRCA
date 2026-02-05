@@ -1,0 +1,332 @@
+{
+  "Coolant_Filter": {
+    "subsystem": "Coolant",
+    "name": "Filter",
+    "type": "container",
+    "variables": [
+      "CLF_Filter_Ok"
+    ],
+    "alarms": [
+      "CLF_A_700307"
+    ]
+  },
+  "Coolant_Fleece": {
+    "subsystem": "Coolant",
+    "name": "Fleece",
+    "type": "component",
+    "variables": [
+      "F_Filter_Ok"
+    ],
+    "alarms": [
+      "F_A_700313"
+    ]
+  },
+  "Coolant_HighPressurePump": {
+    "subsystem": "Coolant",
+    "name": "HighPressurePump",
+    "type": "actuator",
+    "variables": [
+      "HP_Pump_isOff",
+      "HP_Pump_Ok"
+    ],
+    "alarms": [
+      "HP_A_700304"
+    ]
+  },
+  "Coolant_LiftingTank": {
+    "subsystem": "Coolant",
+    "name": "LiftingTank",
+    "type": "container",
+    "variables": [
+      "LT_Level_Ok",
+      "LT_Pump_Ok"
+    ],
+    "alarms": [
+      "LT_A_700317"
+    ]
+  },
+  "Coolant_LowPressurePump": {
+    "subsystem": "Coolant",
+    "name": "LowPressurePump",
+    "type": "actuator",
+    "variables": [
+      "LP_Pump_Ok",
+      "LP_Pump_On"
+    ],
+    "alarms": [
+      "LP_A_700301"
+    ]
+  },
+  "Coolant_Tank": {
+    "subsystem": "Coolant",
+    "name": "Tank",
+    "type": "container",
+    "variables": [
+      "CLT_Level_lt_Min"
+    ],
+    "alarms": [
+      "CLT_A_700310"
+    ]
+  },
+  "ExtractionUnit_General": {
+    "subsystem": "ExtractionUnit",
+    "name": "General",
+    "type": "component",
+    "variables": [
+      "ExU_isOff",
+      "ExU_On"
+    ],
+    "alarms": []
+  },
+  "Hydraulics_General": {
+    "subsystem": "Hydraulics",
+    "name": "General",
+    "type": "component",
+    "variables": [
+      "Hyd_IsEnabled",
+      "Hyd_Pressure",
+      "Hyd_Valve_P_Up"
+    ],
+    "alarms": [
+      "Hyd_A_700202"
+    ]
+  },
+  "Hydraulics_Hyd_Filter": {
+    "subsystem": "Hydraulics",
+    "name": "Hyd_Filter",
+    "type": "container",
+    "variables": [
+      "Hyd_Filter_Ok"
+    ],
+    "alarms": [
+      "Hyd_A_700207"
+    ]
+  },
+  "Hydraulics_Hyd_Level": {
+    "subsystem": "Hydraulics",
+    "name": "Hyd_Level",
+    "type": "component",
+    "variables": [
+      "Hyd_Level_Ok"
+    ],
+    "alarms": [
+      "Hyd_A_700205",
+      "Hyd_A_700206"
+    ]
+  },
+  "Hydraulics_Hyd_Pump": {
+    "subsystem": "Hydraulics",
+    "name": "Hyd_Pump",
+    "type": "actuator",
+    "variables": [
+      "Hyd_Pump_isOff",
+      "Hyd_Pump_Ok",
+      "Hyd_Pump_On"
+    ],
+    "alarms": [
+      "Hyd_A_700208"
+    ]
+  },
+  "Hydraulics_Hyd_Temp": {
+    "subsystem": "Hydraulics",
+    "name": "Hyd_Temp",
+    "type": "component",
+    "variables": [
+      "Hyd_Temp_lt_70",
+      "Hyd_Temp_lt_80"
+    ],
+    "alarms": [
+      "Hyd_A_700203",
+      "Hyd_A_700204"
+    ]
+  },
+  "Lubrication_General": {
+    "subsystem": "Lubrication",
+    "name": "General",
+    "type": "component",
+    "variables": [
+      "Lubr_On",
+      "Lubr_P_Ok"
+    ],
+    "alarms": []
+  },
+  "MeasuringProbe_General": {
+    "subsystem": "MeasuringProbe",
+    "name": "General",
+    "type": "component",
+    "variables": [
+      "MP_Inactive"
+    ],
+    "alarms": []
+  },
+  "MeasuringProbe_Axis": {
+    "subsystem": "MeasuringProbe",
+    "name": "Axis",
+    "type": "component",
+    "variables": [
+      "MPA_InitPos",
+      "MPA_toInitPos",
+      "MPA_toWorkPos",
+      "MPA_WorkPos"
+    ],
+    "alarms": [
+      "MPA_A_701124",
+      "MPA_A_701125"
+    ]
+  },
+  "MeasuringProbe_Cover": {
+    "subsystem": "MeasuringProbe",
+    "name": "Cover",
+    "type": "actuator",
+    "variables": [
+      "MPC_close",
+      "MPC_Closed",
+      "MPC_isOpen",
+      "MPC_open"
+    ],
+    "alarms": []
+  },
+  "Monitoring_General": {
+    "subsystem": "Monitoring",
+    "name": "General",
+    "type": "component",
+    "variables": [
+      "M_ErrorActive",
+      "M_Lifebit",
+      "M_PowerOnDuration",
+      "M_WarnActive",
+      "M_WarnWithStacklight"
+    ],
+    "alarms": []
+  },
+  "Monitoring_Stacklight": {
+    "subsystem": "Monitoring",
+    "name": "Stacklight",
+    "type": "component",
+    "variables": [
+      "SL_Green",
+      "SL_Red",
+      "SL_Yellow"
+    ],
+    "alarms": []
+  },
+  "MovingSteadyRest_General": {
+    "subsystem": "MovingSteadyRest",
+    "name": "General",
+    "type": "component",
+    "variables": [],
+    "alarms": [
+      "SR_A_67040"
+    ]
+  },
+  "MovingSteadyRest_Clamping": {
+    "subsystem": "MovingSteadyRest",
+    "name": "Clamping",
+    "type": "component",
+    "variables": [
+      "SR_loosen",
+      "SR_tighten"
+    ],
+    "alarms": []
+  },
+  "WorkpieceSupply_WorkpieceCarrier": {
+    "subsystem": "WorkpieceSupply",
+    "name": "WorkpieceCarrier",
+    "type": "component",
+    "variables": [
+      "SRL_lock",
+      "SRL_Locked",
+      "SRL_unlock",
+      "SRL_Unlocked",
+      "TL_lock",
+      "TL_Locked",
+      "TL_unlock",
+      "WC_inPos",
+      "WCL_InitPos",
+      "WCL_Locked",
+      "WCL_toInitPos",
+      "WCL_toWorkPos",
+      "WCL_Unlocked",
+      "WCL_WorkPos"
+    ],
+    "alarms": []
+  },
+  "WorkpieceSupply_ConveyerBeltCover": {
+    "subsystem": "WorkpieceSupply",
+    "name": "ConveyerBeltCover",
+    "type": "actuator",
+    "variables": [
+      "CBC_close",
+      "CBC_Closed",
+      "CBC_isOpen",
+      "CBC_open"
+    ],
+    "alarms": []
+  },
+  "Program_General": {
+    "subsystem": "Program",
+    "name": "General",
+    "type": "component",
+    "variables": [
+      "Prog_CuttingTime",
+      "Prog_CycleTime",
+      "Prog_LineNo",
+      "Prog_Name",
+      "Prog_Name_LineNo"
+    ],
+    "alarms": [
+      "Prog_A_701330"
+    ]
+  },
+  "Spindle_General": {
+    "subsystem": "Spindle",
+    "name": "General",
+    "type": "component",
+    "variables": [
+      "Spd_InnerCoolOn",
+      "Spd_OuterCoolOn"
+    ],
+    "alarms": []
+  },
+  "Spindle_cAxis": {
+    "subsystem": "Spindle",
+    "name": "cAxis",
+    "type": "component",
+    "variables": [
+      "Spd_ActPos_C",
+      "Spd_ActSpeed_C"
+    ],
+    "alarms": []
+  },
+  "Spindle_xAxis": {
+    "subsystem": "Spindle",
+    "name": "xAxis",
+    "type": "component",
+    "variables": [
+      "Spd_ActPos_X",
+      "Spd_ActSpeed_X"
+    ],
+    "alarms": []
+  },
+  "Spindle_zAxis": {
+    "subsystem": "Spindle",
+    "name": "zAxis",
+    "type": "component",
+    "variables": [
+      "Spd_ActPos_Z",
+      "Spd_ActSpeed_Z"
+    ],
+    "alarms": []
+  },
+  "Tool_General": {
+    "subsystem": "Tool",
+    "name": "General",
+    "type": "component",
+    "variables": [
+      "T_ActToolIdent"
+    ],
+    "alarms": [
+      "T_A_701309"
+    ]
+  }
+}
