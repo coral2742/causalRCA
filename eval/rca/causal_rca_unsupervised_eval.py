@@ -49,7 +49,7 @@ for cd_method, graph in PROBE_CD_GRAPHS.items():
     result =  evaluate_unsupervised_rca_model(
         model=unsupervised_model,
         path=PROBE_DS_PATH,
-        use_relevant_nodes_info=False
+        mode='full'
     )
     # Print results
     print(f"\n### Evaluation Results for CausalPrioLogisticRegressionRCA on Probe Datasets with {cd_method}-based-CG ###\n")
@@ -94,7 +94,7 @@ for cd_method, graph in COOLANT_CD_GRAPHS.items():
     result =  evaluate_unsupervised_rca_model(
         model=unsupervised_model,
         path=COOLANT_DS_PATH,
-        use_relevant_nodes_info=False
+        mode='full'
     )
     # Print results
     print(f"\n### Evaluation Results for CausalPrioTimeProximityRCA on Coolant Datasets with {cd_method}-based-CG ###\n")
@@ -138,7 +138,7 @@ for cd_method, graph in HYDRAULICS_CD_GRAPHS.items():
     result =  evaluate_unsupervised_rca_model(
         model=unsupervised_model,
         path=HYDRAULICS_DS_PATH,
-        use_relevant_nodes_info=False
+        mode='full'
     )
     # Print results
     print(f"\n### Evaluation Results for CausalPrioTimeProximityRCA on Hydraulics Datasets with {cd_method}-based-CG ###\n")
