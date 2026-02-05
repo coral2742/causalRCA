@@ -18,3 +18,5 @@ kmx_selected_datasets
 
 # package files
 *.egg-info/
+
+.env
